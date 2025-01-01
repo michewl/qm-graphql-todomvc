@@ -1,0 +1,20 @@
+[package]
+name = "qgt-server"
+description = "The server for the qm graphql todomvc application"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+version.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+axum = "0.7"
+dotenv = "0.15"
+qm = { workspace = true, features = ["server"] }
+tokio = { version = "1.42", features = ["full"] }
+
+anyhow.workspace = true
+envy.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
