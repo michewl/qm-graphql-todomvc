@@ -16,7 +16,17 @@ This project uses the following [QM crate][qm-crate] features.
 Used for the server configuration.\
 The configuration must be done trough environment variables with the `SERVER_` prefix.
 
-Available variables are `SERVER_APP_NAME`, `SERVER_HOST`, `SERVER_PORT`.
+Available variables are: `SERVER_HOST`, `SERVER_PORT`, `SERVER_APP_NAME`
+
+### `mongodb`
+
+Available variables are: `MONGODB_HOST`, `MONGODB_PORT`, `MONGODB_DATABASE`, `MONGODB_USERNAME`,
+`MONGODB_PASSWORD`, `MONGODB_ROOT_DATABASE`, `MONGODB_ROOT_USERNAME`, `MONGODB_ROOT_PASSWORD`,
+`MONGODB_SHARDED`
+
+> [!NOTE]
+> The database uses the `SERVER_APP_NAME` value to identify the application in the client logs.
+> See also [Connection Options](https://www.mongodb.com/docs/drivers/rust/current/fundamentals/connections/connection-options/#overview)
 
 ## Running locally
 

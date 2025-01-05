@@ -1,0 +1,13 @@
+name: qgt
+
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    restart: always
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+  mongodb:
