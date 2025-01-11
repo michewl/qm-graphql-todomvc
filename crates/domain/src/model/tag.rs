@@ -46,14 +46,14 @@ pub(crate) struct UpdateTagInput {
     name: Option<String>,
 }
 
-impl Into<UpdateModifications> for &UpdateTagInput {
+impl From<&UpdateTagInput> for UpdateModifications {
     /// Converter to create a update document for MongoDB.
     ///
     /// Will hard-coded set the [modified](Tag) field to the current UTC date.
-    fn into(self) -> UpdateModifications {
+    fn from(input: &UpdateTagInput) -> Self {
         // The document which must contain all $set operator updates
         let mut sets = doc! { "modified": DateTime::now() };
-        if let Some(name) = &self.name {
+        if let Some(name) = &input.name {
             sets.insert("name", name);
         }
 

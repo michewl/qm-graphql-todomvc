@@ -63,22 +63,22 @@ pub(crate) struct UpdateTodoInput {
     title: Option<String>,
 }
 
-impl Into<UpdateModifications> for &UpdateTodoInput {
+impl From<&UpdateTodoInput> for UpdateModifications {
     /// Converter to create a update document for MongoDB.
     ///
     /// Will hard-coded set the [modified](Todo) field to the current UTC date.
-    fn into(self) -> UpdateModifications {
+    fn from(input: &UpdateTodoInput) -> UpdateModifications {
         // The document which must contain all $set operator updates
         let mut sets = doc! { "modified": DateTime::now() };
         // The document which must contain all $unset operator updates
         let mut unsets = doc! {};
-        if let Some(completed) = &self.completed {
+        if let Some(completed) = &input.completed {
             sets.insert("completed", completed);
         }
-        if let Some(order) = &self.order {
+        if let Some(order) = &input.order {
             sets.insert("order", order);
         }
-        match &self.tags {
+        match &input.tags {
             MaybeUndefined::Undefined => {}
             MaybeUndefined::Null => {
                 unsets.insert("$unset", doc! {"tags": ""});
@@ -87,7 +87,7 @@ impl Into<UpdateModifications> for &UpdateTodoInput {
                 sets.insert("tags", tags);
             }
         }
-        if let Some(title) = &self.title {
+        if let Some(title) = &input.title {
             sets.insert("title", title);
         }
 

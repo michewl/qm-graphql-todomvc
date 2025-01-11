@@ -42,13 +42,12 @@ impl DomainMutationRoot {
         .await
         .map_err(|e| e.into())
         .map(|t| {
-            t.expect(
-                format!(
+            t.unwrap_or_else(|| {
+                panic!(
                     "the inserted tag should exist for id '{}'",
-                    &result.inserted_id,
+                    &result.inserted_id
                 )
-                .as_str(),
-            )
+            })
         })
     }
 
@@ -78,7 +77,7 @@ impl DomainMutationRoot {
             .await
             .map_err(|e| e.into())
             .map(|t| {
-                t.expect(format!("the updated tag should exist for id '{}'", &input.id,).as_str())
+                t.unwrap_or_else(|| panic!("the updated tag should exist for id '{}'", &input.id))
             })
     }
 
@@ -127,13 +126,12 @@ impl DomainMutationRoot {
         .await
         .map_err(|e| e.into())
         .map(|t| {
-            t.expect(
-                format!(
+            t.unwrap_or_else(|| {
+                panic!(
                     "the inserted todo should exist for id '{}'",
-                    &result.inserted_id,
+                    &result.inserted_id
                 )
-                .as_str(),
-            )
+            })
         })
     }
 
@@ -163,7 +161,7 @@ impl DomainMutationRoot {
             .await
             .map_err(|e| e.into())
             .map(|t| {
-                t.expect(format!("the updated todo should exist for id '{}'", &input.id,).as_str())
+                t.unwrap_or_else(|| panic!("the updated todo should exist for id '{}'", &input.id))
             })
     }
 
