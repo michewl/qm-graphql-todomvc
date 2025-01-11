@@ -9,6 +9,7 @@ version.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-bson = "2.13"
-
+async-graphql.workspace = true
+bson.workspace = true
+qm = { workspace = true, features = ["mongodb"] }
 serde.workspace = true

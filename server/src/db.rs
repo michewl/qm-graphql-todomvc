@@ -1,11 +1,12 @@
 use anyhow::anyhow;
+use bson::DateTime;
 use qm::mongodb::bson::doc;
 use qm::mongodb::bson::Document;
 use qm::mongodb::DB;
 
-mod collections {
-    pub(crate) const TODOS: &str = "todos";
-    pub(crate) const TAGS: &str = "tags";
+pub mod collections {
+    pub const TODOS: &str = "todos";
+    pub const TAGS: &str = "tags";
 }
 
 /// Set up the database.
@@ -15,16 +16,20 @@ pub(crate) async fn setup_database(db: &DB) -> anyhow::Result<()> {
 
     // Initialize example tags
     let docs = vec![
-        doc! { "name": "work" },
-        doc! { "name": "private" },
-        doc! { "name": "social:youtube" },
-        doc! { "name": "social:tiktok" },
-        doc! { "name": "social:instagram" },
+        doc! { "name": "private", "created": DateTime::now() },
+        doc! { "name": "social:instagram", "created": DateTime::now() },
+        doc! { "name": "social:tiktok", "created": DateTime::now() },
+        doc! { "name": "social:youtube", "created": DateTime::now() },
+        doc! { "name": "work", "created": DateTime::now() },
     ];
 
     for doc in docs {
         let col = db.get().collection::<Document>(collections::TAGS);
-        let cnt = col.count_documents(doc.clone()).await?;
+        let cnt = col
+            .count_documents(
+                doc! { "name": doc.get("name").expect("the tag name should be in the document") },
+            )
+            .await?;
         if cnt == 0 {
             db.get()
                 .collection::<Document>(collections::TAGS)
@@ -32,10 +37,10 @@ pub(crate) async fn setup_database(db: &DB) -> anyhow::Result<()> {
                 .await?;
         } else {
             tracing::info!(
-                "Not insertind tag '{}' since it already exists",
+                "Not inserting tag '{}' since it already exists",
                 doc.get("name")
                     .map(|v| v.as_str().unwrap_or("unknown"))
-                    .unwrap()
+                    .expect("the tag name should be in the document")
             )
         }
     }

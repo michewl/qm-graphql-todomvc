@@ -9,12 +9,18 @@ version.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+async-graphql-axum = "7.0"
 axum = "0.7"
 dotenv = "0.15"
-qm = { workspace = true, features = ["server", "mongodb"] }
+qm = { workspace = true, features = ["mongodb", "server"] }
 tokio = { version = "1.42", features = ["full"] }
 
 anyhow.workspace = true
+async-graphql = { workspace = true, features = ["graphiql", "tracing"] }
+bson.workspace = true
 envy.workspace = true
+serde.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
+
+qgt-model = { path = "../crates/model" }

@@ -10,7 +10,7 @@
 use db::setup_database;
 use std::sync::Arc;
 
-mod db;
+pub mod db;
 
 struct AppInner {
     server_config: qm::server::ServerConfig,
