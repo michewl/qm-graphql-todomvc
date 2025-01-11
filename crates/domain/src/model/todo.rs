@@ -1,3 +1,4 @@
+use async_graphql::ComplexObject;
 use async_graphql::InputObject;
 use async_graphql::MaybeUndefined;
 use async_graphql::SimpleObject;
@@ -8,8 +9,14 @@ use qm::mongodb::options::UpdateModifications;
 use serde::Deserialize;
 use serde::Serialize;
 
+use crate::db::collections::TAGS;
+use crate::service::get_many_by_filter;
+
+use super::tag::Tag;
+
 /// Database representation of a todo.
 #[derive(Debug, Deserialize, Serialize, SimpleObject)]
+#[graphql(complex)]
 pub(crate) struct Todo {
     created: DateTime,
     completed: bool,
@@ -22,10 +29,24 @@ pub(crate) struct Todo {
     title: String,
 }
 
-// TODO: add resolver for tags
-// Requires restructuring because of cyclic dependencies
-// Introduce `domain`, move `models` to module of `domain`
-// Move schema and service to `domain`
+#[ComplexObject]
+impl Todo {
+    async fn tags(
+        &self,
+        ctx: &async_graphql::Context<'_>,
+    ) -> async_graphql::Result<Option<Vec<Tag>>> {
+        if let Some(tag_ids) = &self.tags {
+            let app = ctx.data::<crate::app::App>()?;
+            let result =
+                get_many_by_filter(&app.db().get(), TAGS, doc! { "_id": { "$in": tag_ids } })
+                    .await
+                    .map_err(|e| e.into());
+            result.map(|v| if v.is_empty() { None } else { Some(v) })
+        } else {
+            Ok(None)
+        }
+    }
+}
 
 /// The GraphQL input for creating a todo.
 #[derive(Debug, Deserialize, InputObject, Serialize)]
