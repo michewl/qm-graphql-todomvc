@@ -2,7 +2,6 @@
 //!
 //! Runs a server with the GraphQL API.
 
-use anyhow::Ok;
 use dotenv::dotenv;
 
 mod api;
@@ -21,7 +20,7 @@ async fn main() -> anyhow::Result<()> {
     .expect("the global default tracing subscriber should be settable");
 
     // Load the app
-    let app = qgt_server::App::new().await?;
+    let app = qgt_domain::app::App::new().await?;
 
     // Start the server
     tracing::info!(

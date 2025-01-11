@@ -1618,13 +1618,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "qgt-model"
+name = "qgt-domain"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "async-graphql",
  "bson",
  "qm",
  "serde",
+ "tracing",
 ]
 
 [[package]]
@@ -1638,7 +1640,7 @@ dependencies = [
  "bson",
  "dotenv",
  "envy",
- "qgt-model",
+ "qgt-domain",
  "qm",
  "serde",
  "tokio",

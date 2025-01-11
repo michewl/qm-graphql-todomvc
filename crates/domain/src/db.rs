@@ -4,9 +4,9 @@ use qm::mongodb::bson::doc;
 use qm::mongodb::bson::Document;
 use qm::mongodb::DB;
 
-pub mod collections {
-    pub const TODOS: &str = "todos";
-    pub const TAGS: &str = "tags";
+pub(crate) mod collections {
+    pub(crate) const TODOS: &str = "todos";
+    pub(crate) const TAGS: &str = "tags";
 }
 
 /// Set up the database.

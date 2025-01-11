@@ -1,6 +1,6 @@
 [package]
-name = "qgt-model"
-description = "The models for the qm graphql todomvc application"
+name = "qgt-domain"
+description = "The domain specific code for the qm graphql todomvc application"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,7 +9,9 @@ version.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+anyhow.workspace = true
 async-graphql.workspace = true
 bson.workspace = true
 qm = { workspace = true, features = ["mongodb"] }
 serde.workspace = true
+tracing.workspace = true

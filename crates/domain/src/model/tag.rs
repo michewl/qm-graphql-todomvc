@@ -9,7 +9,7 @@ use serde::Serialize;
 
 /// Database representation of a tag.
 #[derive(Debug, Deserialize, Serialize, SimpleObject)]
-pub struct Tag {
+pub(crate) struct Tag {
     created: DateTime,
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     id: Option<ObjectId>,
@@ -21,7 +21,7 @@ pub struct Tag {
 
 /// The GraphQL input for creating a tag.
 #[derive(Debug, Deserialize, InputObject, Serialize)]
-pub struct CreateTagInput {
+pub(crate) struct CreateTagInput {
     name: String,
 }
 
@@ -41,7 +41,7 @@ impl From<CreateTagInput> for Tag {
 
 /// The GraphQL input for updating a tag.
 #[derive(Debug, Deserialize, InputObject, Serialize)]
-pub struct UpdateTagInput {
+pub(crate) struct UpdateTagInput {
     pub id: ObjectId,
     name: Option<String>,
 }

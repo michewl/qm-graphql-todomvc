@@ -4,13 +4,11 @@
 //!
 //! # Examples
 //! ```rust
-//! let app = qgt_server::App::new();
+//! let app = qgt_domain::app::App::new();
 //! ```
 
-use db::setup_database;
+use crate::db::setup_database;
 use std::sync::Arc;
-
-pub mod db;
 
 struct AppInner {
     server_config: qm::server::ServerConfig,

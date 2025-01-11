@@ -12,7 +12,7 @@ rust-version.workspace = true
 async-graphql-axum = "7.0"
 axum = "0.7"
 dotenv = "0.15"
-qm = { workspace = true, features = ["mongodb", "server"] }
+qm = { workspace = true, features = ["server"] }
 tokio = { version = "1.42", features = ["full"] }
 
 anyhow.workspace = true
@@ -23,4 +23,4 @@ serde.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
 
-qgt-model = { path = "../crates/model" }
+qgt-domain = { path = "../crates/domain" }

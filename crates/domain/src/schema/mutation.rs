@@ -1,15 +1,15 @@
-use crate::api::service::get_one_by_id;
+use crate::db::collections::TAGS;
+use crate::db::collections::TODOS;
+use crate::model::tag::CreateTagInput;
+use crate::model::tag::Tag;
+use crate::model::tag::UpdateTagInput;
+use crate::model::todo::CreateTodoInput;
+use crate::model::todo::Todo;
+use crate::model::todo::UpdateTodoInput;
+use crate::service::get_one_by_id;
 use async_graphql::Context;
 use async_graphql::Object;
 use bson::doc;
-use qgt_model::tag::CreateTagInput;
-use qgt_model::tag::Tag;
-use qgt_model::tag::UpdateTagInput;
-use qgt_model::todo::CreateTodoInput;
-use qgt_model::todo::Todo;
-use qgt_model::todo::UpdateTodoInput;
-use qgt_server::db::collections::TAGS;
-use qgt_server::db::collections::TODOS;
 use qm::mongodb::bson::oid::ObjectId;
 
 #[derive(Default)]
@@ -23,7 +23,7 @@ impl DomainMutationRoot {
         ctx: &Context<'_>,
         input: CreateTagInput,
     ) -> async_graphql::Result<Tag> {
-        let app = ctx.data::<qgt_server::App>()?;
+        let app = ctx.data::<crate::app::App>()?;
         let result = app
             .db()
             .get()
@@ -58,7 +58,7 @@ impl DomainMutationRoot {
         ctx: &Context<'_>,
         input: UpdateTagInput,
     ) -> async_graphql::Result<Tag> {
-        let app = ctx.data::<qgt_server::App>()?;
+        let app = ctx.data::<crate::app::App>()?;
         let result = app
             .db()
             .get()
@@ -88,7 +88,7 @@ impl DomainMutationRoot {
         ctx: &Context<'_>,
         ids: Vec<ObjectId>,
     ) -> async_graphql::Result<usize> {
-        let app = ctx.data::<qgt_server::App>()?;
+        let app = ctx.data::<crate::app::App>()?;
         let result = app
             .db()
             .get()
@@ -108,7 +108,7 @@ impl DomainMutationRoot {
         ctx: &Context<'_>,
         input: CreateTodoInput,
     ) -> async_graphql::Result<Todo> {
-        let app = ctx.data::<qgt_server::App>()?;
+        let app = ctx.data::<crate::app::App>()?;
         let result = app
             .db()
             .get()
@@ -143,7 +143,7 @@ impl DomainMutationRoot {
         ctx: &Context<'_>,
         input: UpdateTodoInput,
     ) -> async_graphql::Result<Todo> {
-        let app = ctx.data::<qgt_server::App>()?;
+        let app = ctx.data::<crate::app::App>()?;
         let result = app
             .db()
             .get()
@@ -173,7 +173,7 @@ impl DomainMutationRoot {
         ctx: &Context<'_>,
         ids: Vec<ObjectId>,
     ) -> async_graphql::Result<usize> {
-        let app = ctx.data::<qgt_server::App>()?;
+        let app = ctx.data::<crate::app::App>()?;
         let result = app
             .db()
             .get()

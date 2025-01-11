@@ -1,14 +1,14 @@
+use crate::app::App;
 use async_graphql::EmptySubscription;
 use async_graphql::MergedObject;
 use mutation::DomainMutationRoot;
-use qgt_server::App;
 use query::DomainQueryRoot;
 
 mod mutation;
 mod query;
 
 /// The base schema type for the application.
-pub(crate) type Schema = async_graphql::Schema<QueryRoot, MutationRoot, EmptySubscription>;
+pub type Schema = async_graphql::Schema<QueryRoot, MutationRoot, EmptySubscription>;
 
 /// The global query root, which combines alls sub-schemas.
 #[derive(Default, MergedObject)]

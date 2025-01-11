@@ -3,12 +3,13 @@ use super::handler::graphql::graphql_handler;
 use super::handler::index::index_handler;
 use axum::Extension;
 use axum::Router;
+use qgt_domain::app::App;
 
 pub(crate) const GRAPHIQL_ROUTE: &str = "/api/graphql";
 
 /// Get the router defining the API endpoints.
-pub(crate) async fn get(app: qgt_server::App) -> Router {
-    let schema = super::schema::SchemaBuilder::default().build(app.clone());
+pub(crate) async fn get(app: App) -> Router {
+    let schema = qgt_domain::schema::SchemaBuilder::default().build(app.clone());
     // Write the schema to a file if we run at debug level
     #[cfg(debug_assertions)]
     if tracing::enabled!(tracing::Level::DEBUG) {

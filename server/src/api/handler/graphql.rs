@@ -1,6 +1,6 @@
-use crate::api::schema::Schema;
 use async_graphql_axum::GraphQLResponse;
 use axum::Extension;
+use qgt_domain::schema::Schema;
 
 /// The handler for the GraphQL API.
 ///

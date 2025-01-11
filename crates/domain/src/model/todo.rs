@@ -10,7 +10,7 @@ use serde::Serialize;
 
 /// Database representation of a todo.
 #[derive(Debug, Deserialize, Serialize, SimpleObject)]
-pub struct Todo {
+pub(crate) struct Todo {
     created: DateTime,
     completed: bool,
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
@@ -29,7 +29,7 @@ pub struct Todo {
 
 /// The GraphQL input for creating a todo.
 #[derive(Debug, Deserialize, InputObject, Serialize)]
-pub struct CreateTodoInput {
+pub(crate) struct CreateTodoInput {
     completed: bool,
     order: u64,
     tags: Option<Vec<ObjectId>>,
@@ -55,7 +55,7 @@ impl From<CreateTodoInput> for Todo {
 
 /// The GraphQL input for updating a todo.
 #[derive(Debug, Deserialize, InputObject, Serialize)]
-pub struct UpdateTodoInput {
+pub(crate) struct UpdateTodoInput {
     completed: Option<bool>,
     pub id: ObjectId,
     order: Option<u32>,
