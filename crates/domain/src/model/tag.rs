@@ -1,3 +1,4 @@
+use async_graphql::ComplexObject;
 use async_graphql::InputObject;
 use async_graphql::SimpleObject;
 use bson::doc;
@@ -7,8 +8,13 @@ use qm::mongodb::options::UpdateModifications;
 use serde::Deserialize;
 use serde::Serialize;
 
+use crate::db::collections::TODOS;
+
+use super::todo::Todo;
+
 /// Database representation of a tag.
 #[derive(Debug, Deserialize, Serialize, SimpleObject)]
+#[graphql(complex)]
 pub(crate) struct Tag {
     created: DateTime,
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
@@ -17,7 +23,18 @@ pub(crate) struct Tag {
     name: String,
 }
 
-// TODO: add loader for count to show how often the tag is used
+#[ComplexObject]
+impl Tag {
+    async fn count(&self, ctx: &async_graphql::Context<'_>) -> async_graphql::Result<u64> {
+        let app = ctx.data::<crate::app::App>()?;
+        app.db()
+            .get()
+            .collection::<Todo>(TODOS)
+            .count_documents(doc! {"tags": self.id.expect("todo id should exist")})
+            .await
+            .map_err(|e| e.into())
+    }
+}
 
 /// The GraphQL input for creating a tag.
 #[derive(Debug, Deserialize, InputObject, Serialize)]
