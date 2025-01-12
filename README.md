@@ -59,7 +59,7 @@ And for the release binary, run:
 cargo build --release && ./target/release/qgt-server
 ```
 
-> ![WARN]
+> [!WARNING]
 > If the rust logging level `debug` is active and the debug binary is used, a `schema.graphql` will
 > be written in the directory from where the binary was executed. Any existing `schema.graphql`
 > will be overwritten.
