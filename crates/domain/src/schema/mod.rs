@@ -1,3 +1,5 @@
+//! This module collects all GraphQL Schemas and provides a builder for it.
+
 use crate::app::App;
 use async_graphql::EmptySubscription;
 use async_graphql::MergedObject;

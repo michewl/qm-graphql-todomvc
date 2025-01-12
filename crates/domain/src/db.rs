@@ -10,6 +10,9 @@ pub(crate) mod collections {
 }
 
 /// Set up the database.
+///
+/// Ensures that all required collections exist, that necessary indexes are created and also creates
+/// some test [Tags](qgt_domain::model::tag::Tag).
 pub(crate) async fn setup_database(db: &DB) -> anyhow::Result<()> {
     init_collection(db, collections::TODOS, vec![]).await?;
     init_collection(db, collections::TAGS, vec![(doc! { "name": 1 }, true)]).await?;

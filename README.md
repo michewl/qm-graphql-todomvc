@@ -7,6 +7,13 @@ The API is loosely based on the [TodoMVC][todomvc-spec]
 project and provides all necessary endpoints to be used as GraphQL backend for
 [TodoMVC][todomvc-spec] apps.
 
+## Notes
+
+* It is possible to create, update and delete tags and todos.
+* The tags have been added to also include some custom resolver for the GraphQL API and don't serve
+  any other purpose.
+* The todo ordering must be done manually and the same order number can be used multiple times.
+
 > [!NOTE]
 > Please be aware that while this example aims to provide some best practices, it also uses a lot of
 > shortcuts for simplicity. E.g. it would be beneficial to use
@@ -31,21 +38,25 @@ Available variables are: `MONGODB_HOST`, `MONGODB_PORT`, `MONGODB_DATABASE`, `MO
 `MONGODB_SHARDED`
 
 > [!NOTE]
-> The database uses the `SERVER_APP_NAME` value to identify the application in the client logs.
+> The database uses the `SERVER_APP_NAME` value to identify the application in the server logs.
 > See also [Connection Options](https://www.mongodb.com/docs/drivers/rust/current/fundamentals/connections/connection-options/#overview)
 
-## Running locally
+## Running the application
 
-To run the project locally, execute
+To run the project locally, execute:
 
 ```shell
 cargo run -p qgt-server
 ```
 
-or build the binary and run that directly
-
+Or build the binary and run that directly.\
+For the debug binary, run:
 ```shell
 cargo build && ./target/debug/qgt-server
+```
+And for the release binary, run:
+```shell
+cargo build --release && ./target/release/qgt-server
 ```
 
 > ![WARN]

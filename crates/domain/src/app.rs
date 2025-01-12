@@ -4,7 +4,7 @@
 //!
 //! # Examples
 //! ```rust
-//! let app = qgt_domain::app::App::new();
+//! let app = qgt_domain::app::App::new().await?;
 //! ```
 
 use crate::db::setup_database;
@@ -22,6 +22,11 @@ pub struct App {
 }
 
 impl App {
+    /// Construct a new [App].
+    ///
+    /// Will initialize
+    /// * [qm::server::ServerConfig]
+    /// * [qm::mongodb::DB]
     pub async fn new() -> anyhow::Result<Self> {
         // Uses defaults from the qm server crate.
         // Can be configured with environment variables with prefix 'SERVER_'.
@@ -39,10 +44,12 @@ impl App {
         })
     }
 
+    /// Get the server configuration.
     pub fn server_config(&self) -> &qm::server::ServerConfig {
         &self.inner.server_config
     }
 
+    /// Get the database.
     pub fn db(&self) -> &qm::mongodb::DB {
         &self.inner.db
     }

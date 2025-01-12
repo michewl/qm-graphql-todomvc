@@ -1,4 +1,4 @@
-//! Service convenience functions for database access.
+//! Service with convenience functions for database access.
 
 use async_graphql::futures_util::TryStreamExt;
 use bson::doc;
