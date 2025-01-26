@@ -1,5 +1,5 @@
 pub mod app;
-mod db;
+pub mod db;
 mod model;
 pub mod schema;
 mod service;

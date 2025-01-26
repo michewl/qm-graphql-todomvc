@@ -10,7 +10,7 @@ rust-version.workspace = true
 
 [dependencies]
 async-graphql-axum = "7.0"
-axum = "0.7"
+axum = "0.8"
 dotenv = "0.15"
 qm = { workspace = true, features = ["server"] }
 tokio = { version = "1.42", features = ["full"] }
@@ -20,7 +20,21 @@ async-graphql = { workspace = true, features = ["graphiql", "tracing"] }
 bson.workspace = true
 envy.workspace = true
 serde.workspace = true
+serde_json.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
 
 qgt-domain = { path = "../crates/domain" }
+
+[dev-dependencies]
+cucumber = { version = "0.21", features = ["tracing", "macros"] }
+derive_more = { version = "1", features = ["deref", "from_str"] }
+jsonpath-rust = "0.7"
+
+[[test]]
+name = "integration"
+harness = false
+
+[[test]]
+name = "setup"
+harness = false

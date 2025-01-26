@@ -1,5 +1,6 @@
 target/
 .vscode/
+.zed/
 
-.env
+.env*
 schema.graphql

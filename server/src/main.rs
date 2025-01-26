@@ -2,14 +2,14 @@
 //!
 //! Runs a server with the GraphQL API.
 
-use dotenv::dotenv;
-
 mod api;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    // This loads the environment variables from `.env`
-    dotenv().ok();
+    // This loads the environment variables from `.env` if it exists
+    if let Err(e) = dotenv::dotenv() {
+        tracing::info!("The '.env' file could not be loaded.\n{}", &e);
+    }
 
     // Set a global tracing subscriber
     tracing::subscriber::set_global_default(

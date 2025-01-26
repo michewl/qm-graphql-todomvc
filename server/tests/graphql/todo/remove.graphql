@@ -1,0 +1,3 @@
+mutation RemoveTodosById($ids: [ObjectId!]!) {
+  removeTodosById(ids: $ids)
+}
