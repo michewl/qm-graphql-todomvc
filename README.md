@@ -45,6 +45,12 @@ The variables `MONGODB_USERNAME` and `MONGODB_PASSWORD` are required.
 
 ## Running the application
 
+The required infra structure can be started using the provided `docker-compose.yml`.
+It contains a MongoDB database which will expose port `27017`.
+
+> [!WARNING]
+> Services in the `docker-compose.yml` are **not** configured for production use.
+
 ### Environment variables
 
 To set the environment variables for the application, a `.env` file can be created.
