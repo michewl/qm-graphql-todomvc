@@ -3,4 +3,5 @@ target/
 .zed/
 
 .env*
+private_schema.graphql
 schema.graphql

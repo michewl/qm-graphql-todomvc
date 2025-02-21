@@ -8,11 +8,13 @@
 //! ```
 
 use crate::db::setup_database;
+use qgt_auth::ctx::AuthContext;
 use std::sync::Arc;
 
 struct AppInner {
-    server_config: qm::server::ServerConfig,
+    auth_ctx: AuthContext,
     db: qm::mongodb::DB,
+    server_config: qm::server::ServerConfig,
 }
 
 /// The app state.
@@ -25,8 +27,9 @@ impl App {
     /// Construct a new [App].
     ///
     /// Will initialize
-    /// * [qm::server::ServerConfig]
-    /// * [qm::mongodb::DB]
+    /// - [qm::server::ServerConfig]
+    /// - [qm::mongodb::DB]
+    /// - [qgt_auth::ctx::AuthContext]
     pub async fn new() -> anyhow::Result<Self> {
         // Uses defaults from the qm server crate.
         // Can be configured with environment variables with prefix 'SERVER_'.
@@ -39,8 +42,15 @@ impl App {
         // Set up the MongoDB for qgt
         setup_database(&db).await?;
 
+        // Set up the auth context
+        let auth_ctx = AuthContext::new()?;
+
         Ok(Self {
-            inner: Arc::new(AppInner { server_config, db }),
+            inner: Arc::new(AppInner {
+                auth_ctx,
+                db,
+                server_config,
+            }),
         })
     }
 
@@ -52,5 +62,10 @@ impl App {
     /// Get the database.
     pub fn db(&self) -> &qm::mongodb::DB {
         &self.inner.db
+    }
+
+    /// Get the [AuthContext].
+    pub fn auth_ctx(&self) -> AuthContext {
+        self.inner.auth_ctx.clone()
     }
 }

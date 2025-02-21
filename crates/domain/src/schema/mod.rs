@@ -6,8 +6,8 @@ use async_graphql::MergedObject;
 use mutation::DomainMutationRoot;
 use query::DomainQueryRoot;
 
-mod mutation;
-mod query;
+pub(crate) mod mutation;
+pub(crate) mod query;
 
 /// The base schema type for the application.
 pub type Schema = async_graphql::Schema<QueryRoot, MutationRoot, EmptySubscription>;

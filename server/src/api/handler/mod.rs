@@ -3,3 +3,5 @@
 pub(crate) mod graphiql;
 pub(crate) mod graphql;
 pub(crate) mod index;
+pub(crate) mod private_graphiql;
+pub(crate) mod private_graphql;

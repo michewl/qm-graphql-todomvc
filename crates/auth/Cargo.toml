@@ -1,6 +1,6 @@
 [package]
-name = "qgt-domain"
-description = "The domain specific code for the qm graphql todomvc application"
+name = "qgt-auth"
+description = "The crate to handle authentication."
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,11 +9,9 @@ version.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+axum-keycloak-auth = "0.7"
+
 anyhow.workspace = true
-async-graphql.workspace = true
-bson.workspace = true
-qm = { workspace = true, features = ["mongodb"] }
+envy.workspace = true
 serde.workspace = true
 tracing.workspace = true
-
-qgt-auth = { path = "../auth" }

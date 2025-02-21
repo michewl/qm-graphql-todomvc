@@ -46,10 +46,36 @@ The variables `MONGODB_USERNAME` and `MONGODB_PASSWORD` are required.
 ## Running the application
 
 The required infra structure can be started using the provided `docker-compose.yml`.
-It contains a MongoDB database which will expose port `27017`.
+It contains a MongoDB database which will expose port `27017` and a Keycloak instance exposed on
+port `8080`.
 
 > [!WARNING]
-> Services in the `docker-compose.yml` are **not** configured for production use.
+> Neither of the services in the `docker-compose.yml` are configured for production use.
+
+### Secured endpoint
+
+> [!CAUTION]
+> The security implementation for the GraphiQL secure endpoint is not very stable and will cause
+> issues especially when the JWT expires. This is only for demonstration purposes and should not
+> be used anywhere other than the local dev environment.
+
+The secured endpoint behind the `/secure` prefix will require an authorization. Since this example
+does not have a fronted but uses the GraphiQL one, the backend will implement some code to store
+the JWT and add it to the GraphQL request.
+
+The Keycloak instance set up within the `docker-compose.yml` can be reached at
+[http://localhost:8080] and uses admin credentials
+`admin:admin` by default. It must be configured to have:
+
+- a realm (with default name `QGT`; can be changed with environment variable `AUTH_REALM`)
+- a client (with default client ID `qgt`; can be changed with environment variable `AUTH_CLIENT_ID`)
+- a user for the client to log in with
+
+> [!NOTE]
+>
+> - There is no refresh mechanic for the JWT
+> - It does not support multiple users
+> - It is recommended to increase the access token lifetime in the realm settings
 
 ### Environment variables
 

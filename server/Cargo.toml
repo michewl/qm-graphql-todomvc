@@ -13,7 +13,9 @@ async-graphql-axum = "7.0"
 axum = "0.8"
 dotenv = "0.15"
 qm = { workspace = true, features = ["server"] }
+reqwest = "0.12"
 tokio = { version = "1.42", features = ["full"] }
+tower = "0.5"
 
 anyhow.workspace = true
 async-graphql = { workspace = true, features = ["graphiql", "tracing"] }
@@ -24,11 +26,12 @@ serde_json.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
 
+qgt-auth = { path = "../crates/auth" }
 qgt-domain = { path = "../crates/domain" }
 
 [dev-dependencies]
 cucumber = { version = "0.21", features = ["tracing", "macros"] }
-derive_more = { version = "1", features = ["deref", "from_str"] }
+derive_more = { version = "2.0", features = ["deref", "from_str"] }
 jsonpath-rust = "0.7"
 
 [[test]]

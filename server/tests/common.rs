@@ -57,7 +57,7 @@ impl AppWorld {
         let schema = SchemaBuilder::default().build(app.clone());
 
         Self {
-            app: app.clone(),
+            app,
             schema,
             state: HashMap::new(),
             last_query_operation: String::default(),
